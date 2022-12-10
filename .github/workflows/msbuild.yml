@@ -25,7 +25,6 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ GITHUB.REPOSITORY.NAME }}
         path: |
           x64/**/*.exe
           x64/**/*.pdb
