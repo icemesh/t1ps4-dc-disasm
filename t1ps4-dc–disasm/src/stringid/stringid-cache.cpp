@@ -1,0 +1,148 @@
+/******************************************************************************/
+/*
+  Author  - icemesh
+*/
+/******************************************************************************/
+#include "stringid-cache.h"
+#include "../dc/dc.h"
+#include "../dc/state-script/state-script.h"
+#include <stdio.h>
+#include <string.h>
+
+StringIdCache::StringIdCache()
+{
+	m_fileName = nullptr;
+	m_numStrings = 0;
+	memset(m_array, 0, kMaxStringIdCacheEntries);
+	AddScriptConstants();
+}
+
+StringIdCache::StringIdCache(const char* fileName)
+{
+	m_fileName = fileName;
+	m_numStrings = 0;
+	AddScriptConstants();
+}
+
+void StringIdCache::GetDebugInfo(DC_Header* pHdr)
+{
+	int numEntries = pHdr->m_numEntries;
+	if (numEntries)
+	{
+	//	printf("Num entries: %d\n", numEntries);
+		Entry* pEntry = pHdr->m_pStartOfData;
+		for (int k = 0; k < numEntries; k++)
+		{
+			if (pEntry[k].m_typeId == SID("state-script"))
+			{
+				StateScript* pSs = reinterpret_cast<StateScript*>(pEntry[k].m_entryPtr);
+				SsState* pStateArray = pSs->m_pSsStateTable;
+				int16_t numStates = pSs->m_numStates;
+				int64_t numSsOnBlocks = 0;
+				SsOnBlock* pOnBlock = nullptr;
+				char stateName[256];
+				for (int i = 0; i < numStates; i++)
+				{
+					numSsOnBlocks = pStateArray[i].m_numSsOnBlocks;
+					if (numSsOnBlocks > 0)
+					{
+						pOnBlock = pStateArray[i].m_pSsOnBlocks;
+						for (int j = 0; j < numSsOnBlocks; j++)
+						{
+							//sscanf_s(pOnBlock[j].m_debugBlockInfo, "%s %s", arr, 0x10, buf, 256);
+							//find the first occurance of space: give that the format of debug info is as follows
+							//<name_of_the_script> <state_name> (on ((<start>||<update>||<event>))) we can resolve some StringIds this way..
+							const char* ptr = strstr(pOnBlock[j].m_name, " ");
+							if (ptr)
+							{
+								ptr++;
+								sscanf_s(ptr, "%s", &stateName, 256);
+								//add the state name to our local cache
+								g_pStringIdCache->AddStringToLocalSidCache(stateName);
+							}
+							else
+							{
+								printf(pOnBlock[j].m_name);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+bool StringIdCache::AddStringToLocalSidCache(const char* pString)
+{
+	if (pString)
+	{
+		StringId sid = SID(pString);
+		//check if the string is present
+		int idx = 0;
+		for (idx; idx < m_numStrings; idx++)
+		{
+			if (m_array[idx].m_key == sid)
+			{
+				return false; //already present
+			}
+		}
+		if (idx < kMaxStringIdCacheEntries)
+		{
+			/*
+#ifdef _DEBUG
+			printf("Adding %s(#%.16llX) to local sid cache\n", pString, sid);
+#endif // DEBUG
+*/
+			m_array[idx].m_key = sid;
+			memcpy_s(m_array[idx].m_data, 256, pString, 256);
+			m_numStrings++;
+		}
+		else
+		{
+			puts("Increase kMaxStringIdCacheEntries");
+		}
+
+		return true;
+	}
+	return false; //invalid string
+}
+
+char* StringIdCache::LookupStringId(StringId sid)
+{
+	for (int idx = 0; idx < m_numStrings; idx++)
+	{
+		if (m_array[idx].m_key == sid)
+		{
+			return m_array[idx].m_data;
+		}
+	}
+	return nullptr;
+}
+
+void StringIdCache::PrintCacheEntries()
+{
+	FILE* fh;
+	fopen_s(&fh, "state-sids.txt", "a");
+	if (fh)
+	{
+		puts("Please give the state-sids.txt to icemesh once its full");
+		for (int i = 0; i < m_numStrings; i++)
+		{
+			fprintf(fh, "%s\n", m_array[i].m_data);
+		}
+		fclose(fh);
+	}
+	else
+	{
+		puts("Please add the following strings to the sidbase");
+		for (int i = 0; i < m_numStrings; i++)
+		{
+			printf("%s\n", m_array[i].m_data);
+		}
+	}
+}
+
+void StringIdCache::AddScriptConstants()
+{
+	/*UNUSED*/
+}
