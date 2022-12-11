@@ -18,7 +18,6 @@ uintptr_t g_moduleBase = 0;
 DC::StackFrame* g_stackFrame = nullptr;
 //DC::StackFrame* g_unkArea = nullptr;
 
-
 int main(int argc, const char* aArgv[])
 {
 	puts("-------------[ t1ps4 script disassembler by icemesh ]--------------\n");
