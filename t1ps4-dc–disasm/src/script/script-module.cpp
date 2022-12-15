@@ -45,7 +45,7 @@ void Module::DumpEntry(Entry* pEntry)
 			IdGroupEntry* pEntry = pGroup->m_pEntries;
 			for (int64_t iEntries = 0; iEntries < numEntries; iEntries++)
 			{
-				printf("\t:name '%s\n", StringIdToStringInternal(pEntry->m_id));
+				printf("    :name '%s\n", StringIdToStringInternal(pEntry->m_id));
 				pEntry++;
 			}
 			puts(")");

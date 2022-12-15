@@ -13,3 +13,6 @@ This will redirect the output of the program to the file ss-basic-door.txt
 
 # Notes
 - Please let me know if a state name is not resolved.
+
+# Special Thanks
+- Chandler Threepwood for providing a list of all the states names
