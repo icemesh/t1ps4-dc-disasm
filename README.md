@@ -1,5 +1,5 @@
 # t1ps4-dc-disasm
-Tool for decompiling The Last Of Us ps4
+Tool for decompiling The Last Of Us ps4 scripts
 
 # Tutorial
 To decompile a script first find a script file that starts with `ss-\<name>.bin`
@@ -16,3 +16,4 @@ This will redirect the output of the program to the file ss-basic-door.txt
 
 # Special Thanks
 - Chandler Threepwood for providing a list of all the states names
+- samsepi0l for providing a list of natives names
