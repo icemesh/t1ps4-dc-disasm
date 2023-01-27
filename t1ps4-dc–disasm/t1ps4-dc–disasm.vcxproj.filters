@@ -42,6 +42,12 @@
     <ClInclude Include="src\dc\id-group\id-group.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\dc\menu\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ss-debug\menu\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\script\script-manager-eval.cpp">
@@ -63,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\stringid\stringid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ss-debug\menu\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

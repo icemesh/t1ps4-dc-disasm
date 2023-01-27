@@ -13,10 +13,14 @@
 #include "../script/script-manager-eval.h"
 //id-group dump
 #include "../dc/id-group/id-group.h"
+//menu dump
+#include "../ss-debug/menu/menu.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <intrin.h> //bittest
+
+extern uintptr_t g_moduleBase;
 
 void Module::DumpEntry(Entry* pEntry)
 {
@@ -52,9 +56,41 @@ void Module::DumpEntry(Entry* pEntry)
 			break;
 		}
 
+		case 0xC7CB275C: //SID("int32")
+		{
+			printf("int32 '%s = %d\n", StringIdToStringInternal(pEntry->m_scriptId ), *reinterpret_cast<int32_t*>(pEntry->m_entryPtr));
+			break;
+		}
+
+		case 0x0B3952E7: //SID("string")
+		{
+			printf("string '%s = %s\n", StringIdToStringInternal(pEntry->m_scriptId), *reinterpret_cast<const char**>(pEntry->m_entryPtr));
+			break;
+		}
+
+		case 0x0F182EC3: //SID("float")
+		{
+			printf("float '%s = %f\n", StringIdToStringInternal(pEntry->m_scriptId), *reinterpret_cast<float*>(pEntry->m_entryPtr));
+			break;
+		}
+
+		case 0xC4AB6121: //SID("symbol")
+		{
+			printf("symbol '%s = '%s\n", StringIdToStringInternal(pEntry->m_scriptId), StringIdToStringInternal(*reinterpret_cast<StringId*>(pEntry->m_entryPtr)) );
+			break;
+		}
+
+		case 0xA990A93B: //SID("menu-page-array")
+		{
+			printf("menu-page-array '%s = (\n", StringIdToStringInternal(pEntry->m_scriptId));
+			Menu::DumpMenuPageArray(reinterpret_cast<MenuPageArray*>(pEntry->m_entryPtr));
+			puts("    )\n");
+			break;
+		}
+
 		default:
 		{
-			printf("Found #%08X -> '%s\n", scriptType, StringIdToStringInternal(scriptType));
+			printf("Unhandled case @ 0x%016llX\n    '%s '%s = ???\n", (reinterpret_cast<uintptr_t>(pEntry) - g_moduleBase), StringIdToStringInternal(scriptType), StringIdToStringInternal(pEntry->m_scriptId) );
 			break;
 		}
 	}
@@ -83,6 +119,7 @@ Module::Module(const char* filename)
 		else
 		{
 			puts("Failed to allocate file");
+			fclose(fh);
 		}
 	}
 	else
