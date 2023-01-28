@@ -162,7 +162,6 @@
     <ClCompile Include="src\ss-debug\state-script-debug.cpp" />
     <ClCompile Include="src\stringid\sidbase.cpp" />
     <ClCompile Include="src\stringid\stringid-cache.cpp" />
-    <ClCompile Include="src\stringid\stringid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sid1\sidbase.bin" />
