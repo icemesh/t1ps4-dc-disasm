@@ -1,6 +1,6 @@
 name: MSBuild
 
-on: push
+on: [ push, pull_request ]
 env:
   SOLUTION_FILE_PATH: .
   BUILD_CONFIGURATION: Release
@@ -24,10 +24,13 @@ jobs:
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
         mkdir x64/${{env.BUILD_CONFIGURATION}}/sid1
         mv t1ps4-dc–disasm/sid1/sidbase.bin x64/${{env.BUILD_CONFIGURATION}}/sid1/sidbase.bin
+        $cmdOutput = Split-Path -Path $pwd -Leaf
+        echo "PROJECT_NAME=$cmdOutput" >> $Env:GITHUB_ENV
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
+        name: ${{ env.PROJECT_NAME }}
         path: |
           x64/**/*.bin
           x64/**/*.exe

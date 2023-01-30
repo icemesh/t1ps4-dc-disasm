@@ -6,6 +6,7 @@
 #include "state-script-debug.h"
 #include "../dc/state-script/state-script.h"
 #include "../stringid/sidbase.h"
+#include "../stringid/stringid.h"
 #include "../script/script-manager-eval.h"
 
 #include <stdio.h>
@@ -63,7 +64,7 @@ void PrintVariable(SsDeclaration* pDecl)
 {
 	switch (pDecl->m_declTypeId)
 	{
-	case 0x8B4E76FF: //SID("boolean")
+	case SID("boolean"):
 	{
 		uint32_t* pVal = reinterpret_cast<uint32_t*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -77,7 +78,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x012F77FE: //SID("vector")
+	case SID("vector"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -91,7 +92,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x06C1F6F6: //SID("quat")
+	case SID("quat"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -105,7 +106,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x0F182EC3: //SID("float")
+	case SID("float"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -119,7 +120,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x0B3952E7: //SID("string")
+	case SID("string"):
 	{
 		const char** pVal = reinterpret_cast<const char**>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -133,7 +134,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xC4AB6121: //SID("symbol"):
+	case SID("symbol"):
 	{
 		StringId* pVal = reinterpret_cast<StringId*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -147,7 +148,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x70A573CC: //SID("identifier"):
+	case SID("identifier"):
 	{
 		StringId* pVal = reinterpret_cast<StringId*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -161,7 +162,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xC7CB275C: //SID("int32"):
+	case SID("int32"):
 	{
 		int32_t* pVal = reinterpret_cast<int32_t*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -175,7 +176,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xE25B0C72: //SID("timer"):
+	case SID("timer"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -189,7 +190,7 @@ void PrintVariable(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xE7070802: //SID("point"):
+	case SID("point"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -215,7 +216,7 @@ void PrintTag(SsDeclaration* pDecl)
 {
 	switch (pDecl->m_declTypeId)
 	{
-	case 0x8B4E76FF: //SID("boolean")
+	case SID("boolean"):
 	{
 		uint32_t* pVal = reinterpret_cast<uint32_t*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -229,7 +230,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x0B3952E7: //SID("string")
+	case SID("string"):
 	{
 		char* pVal = reinterpret_cast<char*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -244,7 +245,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x0F182EC3: //SID("float")
+	case SID("float"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -258,7 +259,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0x70A573CC: //SID("identifier"):
+	case SID("identifier"):
 	{
 		StringId* pVal = reinterpret_cast<StringId*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -272,7 +273,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xC4AB6121: //SID("symbol"):
+	case SID("symbol"):
 	{
 		StringId* pVal = reinterpret_cast<StringId*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -286,7 +287,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xC7CB275C: //SID("int32"):
+	case SID("int32"):
 	{
 		int32_t* pVal = reinterpret_cast<int32_t*>(pDecl->m_pDeclValue);
 		if (pVal)
@@ -300,7 +301,7 @@ void PrintTag(SsDeclaration* pDecl)
 		break;
 	}
 
-	case 0xE25B0C72: //SID("timer"):
+	case SID("timer"):
 	{
 		float* pVal = reinterpret_cast<float*>(pDecl->m_pDeclValue);
 		if (pVal)

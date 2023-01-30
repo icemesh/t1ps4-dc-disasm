@@ -4,6 +4,7 @@
 */
 /******************************************************************************/
 #include "script-module.h"
+#include "../stringid/stringid.h"
 #include "../stringid/sidbase.h"
 
 #include "../dc/dc.h"
@@ -27,13 +28,13 @@ void Module::DumpEntry(Entry* pEntry)
 	StringId scriptType = pEntry->m_typeId;
 	switch (scriptType)
 	{
-		case 0x45C51F9F: //SID("state-script")
+		case SID("state-script"):
 		{
 			DumpScript(reinterpret_cast<StateScript*>(pEntry->m_entryPtr));
 			break;
 		}
 
-		case 0x9ED499E1: //SID("script-lambda")
+		case SID("script-lambda"):
 		{
 			printf("(defun '%s\n", StringIdToStringInternal(pEntry->m_scriptId));
 			ExecuteScriptCode(reinterpret_cast<ScriptLambda*>(pEntry->m_entryPtr));
@@ -41,7 +42,7 @@ void Module::DumpEntry(Entry* pEntry)
 			break;
 		}
 
-		case 0x0372CF7E: //SID("id-group")
+		case SID("id-group"):
 		{
 			printf("(define-id-group '%s\n", StringIdToStringInternal(pEntry->m_scriptId));
 			IdGroup* pGroup = reinterpret_cast<IdGroup*>(pEntry->m_entryPtr);
@@ -56,31 +57,31 @@ void Module::DumpEntry(Entry* pEntry)
 			break;
 		}
 
-		case 0xC7CB275C: //SID("int32")
+		case SID("int32"):
 		{
 			printf("int32 '%s = %d\n", StringIdToStringInternal(pEntry->m_scriptId ), *reinterpret_cast<int32_t*>(pEntry->m_entryPtr));
 			break;
 		}
 
-		case 0x0B3952E7: //SID("string")
+		case SID("string"):
 		{
 			printf("string '%s = %s\n", StringIdToStringInternal(pEntry->m_scriptId), *reinterpret_cast<const char**>(pEntry->m_entryPtr));
 			break;
 		}
 
-		case 0x0F182EC3: //SID("float")
+		case SID("float"):
 		{
 			printf("float '%s = %f\n", StringIdToStringInternal(pEntry->m_scriptId), *reinterpret_cast<float*>(pEntry->m_entryPtr));
 			break;
 		}
 
-		case 0xC4AB6121: //SID("symbol")
+		case SID("symbol"):
 		{
 			printf("symbol '%s = '%s\n", StringIdToStringInternal(pEntry->m_scriptId), StringIdToStringInternal(*reinterpret_cast<StringId*>(pEntry->m_entryPtr)) );
 			break;
 		}
 
-		case 0xA990A93B: //SID("menu-page-array")
+		case SID("menu-page-array"):
 		{
 			printf("menu-page-array '%s = (\n", StringIdToStringInternal(pEntry->m_scriptId));
 			Menu::DumpMenuPageArray(reinterpret_cast<MenuPageArray*>(pEntry->m_entryPtr));
