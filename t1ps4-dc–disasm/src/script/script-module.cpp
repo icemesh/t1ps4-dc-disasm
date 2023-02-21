@@ -16,6 +16,8 @@
 #include "../dc/id-group/id-group.h"
 //menu dump
 #include "../ss-debug/menu/menu.h"
+//look
+#include "../ss-debug/looks/looks.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -85,6 +87,14 @@ void Module::DumpEntry(Entry* pEntry)
 		{
 			printf("menu-page-array '%s = (\n", StringIdToStringInternal(pEntry->m_scriptId));
 			Menu::DumpMenuPageArray(reinterpret_cast<MenuPageArray*>(pEntry->m_entryPtr));
+			puts("    )\n");
+			break;
+		}
+
+		case SID("look"):
+		{
+			printf("look '%s = (\n", StringIdToStringInternal(pEntry->m_scriptId));
+			DumpLook(reinterpret_cast<Look*>(pEntry->m_entryPtr));
 			puts("    )\n");
 			break;
 		}

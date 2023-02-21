@@ -123,10 +123,13 @@
   <ItemGroup>
     <ClInclude Include="src\dc\dc.h" />
     <ClInclude Include="src\dc\id-group\id-group.h" />
+    <ClInclude Include="src\dc\looks\looks.h" />
     <ClInclude Include="src\dc\menu\menu.h" />
+    <ClInclude Include="src\dc\net\net.h" />
     <ClInclude Include="src\dc\state-script\state-script.h" />
     <ClInclude Include="src\script\script-manager-eval.h" />
     <ClInclude Include="src\script\script-module.h" />
+    <ClInclude Include="src\ss-debug\looks\looks.h" />
     <ClInclude Include="src\ss-debug\menu\menu.h" />
     <ClInclude Include="src\ss-debug\state-script-debug.h" />
     <ClInclude Include="src\stringid\sidbase.h" />
@@ -137,6 +140,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\script\script-manager-eval.cpp" />
     <ClCompile Include="src\script\script-module.cpp" />
+    <ClCompile Include="src\ss-debug\looks\looks.cpp" />
     <ClCompile Include="src\ss-debug\menu\menu.cpp" />
     <ClCompile Include="src\ss-debug\state-script-debug.cpp" />
     <ClCompile Include="src\stringid\sidbase.cpp" />

@@ -48,6 +48,15 @@
     <ClInclude Include="src\ss-debug\menu\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\dc\looks\looks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ss-debug\looks\looks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dc\net\net.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\script\script-manager-eval.cpp">
@@ -68,10 +77,10 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\stringid\stringid.cpp">
+    <ClCompile Include="src\ss-debug\menu\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ss-debug\menu\menu.cpp">
+    <ClCompile Include="src\ss-debug\looks\looks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
